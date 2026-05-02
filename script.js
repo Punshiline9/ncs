@@ -39,6 +39,24 @@ function executarAcaoPorPagina() {
   atualizarMiniCarrinho();
 }
 
+// ==================== FUNÇÃO AUXILIAR PARA FALLBACK DE IMAGENS ====================
+function getImageWithFallback(originalPath) {
+  // Se já começa com "imagen/", extrai só o nome do arquivo
+  const filename = originalPath.includes("imagen/") 
+    ? originalPath.replace("imagen/", "") 
+    : originalPath.split('/').pop();
+  // Retorna uma string com o caminho original e o fallback via onerror
+  return originalPath;
+}
+
+// No HTML, usaremos onerror para tentar primeiro a raiz, depois placeholder
+function getImageTag(imgPath, altText) {
+  // Extrai o nome do arquivo (ex: "fogo.jpg")
+  const filename = imgPath.includes("imagen/") ? imgPath.replace("imagen/", "") : imgPath.split('/').pop();
+  // Tenta carregar da pasta imagen, se falhar tenta raiz, se falhar placeholder
+  return `<img src="${imgPath}" alt="${altText}" onerror="this.onerror=null; this.src='${filename}'; this.onerror=function(){this.src='https://via.placeholder.com/300?text=Sem+Imagem';}">`;
+}
+
 // ==================== RENDERIZAÇÃO DE PRODUTOS ====================
 function renderizarDestaques() {
   const destaques = produtos.filter((p) => p.destaque === true);
@@ -65,7 +83,7 @@ function renderizarCategorias() {
     .map(
       (cat) => `
     <a href="categoria.html?slug=${cat.slug}" class="categoria-card">
-      <img src="${cat.imagem}" alt="${cat.nome}">
+      <img src="${cat.imagem}" alt="${cat.nome}" onerror="this.onerror=null; this.src='${cat.imagem.split('/').pop()}'; this.onerror=function(){this.src='https://via.placeholder.com/80?text=Sem+Imagem';}">
       <h3>${cat.nome}</h3>
       <p>${cat.icone || "✨"}</p>
     </a>
@@ -82,16 +100,19 @@ function renderizarGridProdutos(produtosArray, container) {
   }
   container.innerHTML = produtosArray
     .map(
-      (prod) => `
+      (prod) => {
+        const filename = prod.imagem.includes("imagen/") ? prod.imagem.replace("imagen/", "") : prod.imagem.split('/').pop();
+        return `
     <div class="produto">
-      <img src="${prod.imagem}" alt="${prod.nome}" onerror="this.src='https://via.placeholder.com/300?text=Sem+Imagem'">
+      <img src="${prod.imagem}" alt="${prod.nome}" onerror="this.onerror=null; this.src='${filename}'; this.onerror=function(){this.src='https://via.placeholder.com/300?text=Sem+Imagem';}">
       <h3>${prod.nome}</h3>
       <div class="preco">${prod.preco.toFixed(2)} STD</div>
       <div class="estrelas">${"★".repeat(prod.avaliacao)}${"☆".repeat(5 - prod.avaliacao)}</div>
       <button class="btn-adicionar" data-id="${prod.id}">+ ADICIONAR AO CARRINHO</button>
       <a href="produto.html?id=${prod.id}" style="font-size:0.75rem;">Ver detalhes →</a>
     </div>
-  `,
+  `;
+      }
     )
     .join("");
   document.querySelectorAll(".btn-adicionar").forEach((btn) => {
@@ -111,9 +132,12 @@ function renderizarProdutoDetalhe() {
       "<p>Produto não encontrado.</p>";
     return;
   }
+  const filename = produto.imagem.includes("imagen/") ? produto.imagem.replace("imagen/", "") : produto.imagem.split('/').pop();
   const html = `
     <div class="produto-detalhes">
-      <div class="produto-imagem-principal"><img src="${produto.imagem}" onerror="this.src='https://via.placeholder.com/400?text=Sem+Imagem'"></div>
+      <div class="produto-imagem-principal">
+        <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.onerror=null; this.src='${filename}'; this.onerror=function(){this.src='https://via.placeholder.com/400?text=Sem+Imagem';}">
+      </div>
       <div class="produto-info">
         <h1>${produto.nome}</h1>
         <div class="produto-preco">${produto.preco.toFixed(2)} STD</div>
@@ -248,9 +272,10 @@ function renderizarCarrinhoModal() {
     total = 0;
   carrinho.forEach((item) => {
     total += item.preco * item.qtd;
+    const filename = item.imagem.includes("imagen/") ? item.imagem.replace("imagen/", "") : item.imagem.split('/').pop();
     html += `
       <div class="item-carrinho">
-        <img src="${item.imagem}" onerror="this.src='https://via.placeholder.com/50'">
+        <img src="${item.imagem}" onerror="this.onerror=null; this.src='${filename}'; this.onerror=function(){this.src='https://via.placeholder.com/50';}">
         <div class="item-nome">${item.nome}</div>
         <div class="item-preco">${item.preco.toFixed(2)} STD</div>
         <div class="qtd-control">
@@ -359,7 +384,11 @@ function atualizarMiniCarrinho() {
     total = 0;
   carrinhoAtual.forEach((item) => {
     total += item.preco * item.qtd;
-    html += `<div class="mini-item"><img src="${item.imagem}" onerror="this.src='https://via.placeholder.com/40'"><div><strong>${item.nome}</strong><br>${item.preco.toFixed(2)} STD x ${item.qtd}</div></div>`;
+    const filename = item.imagem.includes("imagen/") ? item.imagem.replace("imagen/", "") : item.imagem.split('/').pop();
+    html += `<div class="mini-item">
+      <img src="${item.imagem}" onerror="this.onerror=null; this.src='${filename}'; this.onerror=function(){this.src='https://via.placeholder.com/40';}">
+      <div><strong>${item.nome}</strong><br>${item.preco.toFixed(2)} STD x ${item.qtd}</div>
+    </div>`;
   });
   container.innerHTML = html;
   if (totalSpan) totalSpan.innerText = total.toFixed(2);
