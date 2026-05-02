@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "colchoes",
+    "nome": "Colchões",
+    "imagem": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=200",
+    "icone": "🛏️"
+  },
+  {
+    "slug": "eletrodomesticos",
+    "nome": "Eletrodomésticos",
+    "imagem": "https://images.unsplash.com/photo-1581349479600-896e6b5d9fab?w=200",
+    "icone": "🔌"
+  },
+  {
+    "slug": "cama-mesa-banho",
+    "nome": "Cama, Mesa e Banho",
+    "imagem": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200",
+    "icone": "🛌"
+  },
+  {
+    "slug": "escritorio",
+    "nome": "Escritório",
+    "imagem": "https://images.unsplash.com/photo-1589384267710-7a25bc5ab784?w=200",
+    "icone": "💺"
+  },
+  {
+    "slug": "utilidades-cozinha",
+    "nome": "Utilidades Cozinha",
+    "imagem": "https://images.unsplash.com/photo-1584999734482-0361aecad844?w=200",
+    "icone": "🍳"
+  },
+  {
+    "slug": "sala-estar",
+    "nome": "Sala e Estar",
+    "imagem": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200",
+    "icone": "🛋️"
+  },
+  {
+    "slug": "conforto-sono",
+    "nome": "Conforto do Sono",
+    "imagem": "https://images.unsplash.com/photo-1505693314122-2a4b9b3e9f1d?w=200",
+    "icone": "😴"
+  },
+  {
+    "slug": "casa-decor",
+    "nome": "Decoração",
+    "imagem": "https://images.unsplash.com/photo-1602874801007-bd36b6c7a6b6?w=200",
+    "icone": "🕯️"
+  }
+]

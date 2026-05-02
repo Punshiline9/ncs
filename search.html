@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSC | Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Fundo estático com imagem fixa (adicione sua imagem) */
+      body {
+        background-image: url("fundo-site.jpg"); /* ← troque pelo nome da sua imagem */
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      /* O bg-glow vai sobrepor suavemente a imagem */
+      .bg-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(212, 175, 55, 0.15),
+          rgba(0, 0, 0, 0.8) 90%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <header>...</header>
+    <main>
+      <h3 class="section-title">🔍 Resultados da busca</h3>
+      <div class="grelha" id="resultadosBusca"></div>
+    </main>
+    <footer class="footer">...</footer>
+    <div id="carrinhoOverlay" class="overlay">...</div>
+    <script src="script.js"></script>
+  </body>
+</html>

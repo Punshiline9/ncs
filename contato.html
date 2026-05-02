@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSC | Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Fundo estático com imagem fixa (adicione sua imagem) */
+      body {
+        background-image: url("fundo-site.jpg"); /* ← troque pelo nome da sua imagem */
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      /* O bg-glow vai sobrepor suavemente a imagem */
+      .bg-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(212, 175, 55, 0.15),
+          rgba(0, 0, 0, 0.8) 90%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <header>
+      <div class="logo-container">
+        <img src="Logo.jpeg" alt="NSC Logo" class="logo-img" />
+        <div class="logo-texto">
+          <h1>NSC</h1>
+          <p>ESCOLA ADMINISTRATIVA DE COOPERATIVO</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">🏠 HOME</a>
+        <a href="ofertas.html">💎 OFERTAS</a>
+        <a href="novidades.html">⭐ NOVIDADES</a>
+        <a href="categorias.html">🛍️ CATEGORIAS</a>
+        <a href="contato.html" class="active">📞 CONTATO</a>
+        <a href="#" id="abrirCarrinhoBtn"
+          >🛒 CARRINHO (<span id="contadorCarrinho">0</span>)</a
+        >
+      </nav>
+    </header>
+    <main>
+      <h3 class="section-title">📞 Fale Conosco</h3>
+      <div class="contato-container">
+        <div class="contato-info">
+          <h3>Informações</h3>
+          <p>📧 contato@nsc.com.br</p>
+          <p>📱 (11) 99999-9999</p>
+          <p>💬 WhatsApp: (11) 98888-7777</p>
+          <p>📍 Av. Paulista, 1000 - São Paulo/SP</p>
+        </div>
+        <div class="contato-formulario">
+          <h3>Envie uma mensagem</h3>
+          <form id="formContato">
+            <input type="text" id="nome" placeholder="Seu nome" required />
+            <input type="email" id="email" placeholder="Seu e-mail" required />
+            <textarea
+              id="mensagem"
+              rows="4"
+              placeholder="Sua mensagem..."
+            ></textarea>
+            <button type="submit">Enviar via WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>© 2025 NSC – Todos os direitos reservados</p>
+      <p>
+        <a href="termos.html">Termos</a> |
+        <a href="privacidade.html">Privacidade</a> | <a href="faq.html">FAQ</a>
+      </p>
+    </footer>
+    <div id="carrinhoOverlay" class="overlay">...</div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "nome": "Conjunto de de Tsherts NSC",
+    "preco": 349,
+    "imagem": "imagen/Conjunto.jpg",
+    "categoria": "utilidades-cozinha",
+    "destaque": true,
+    "oferta": false,
+    "avaliacao": 4,
+    "descricao": "Conjunto com 8 peças, revestimento antiaderente, cabos anatômicos."
+  },
+  {
+    "id": 2,
+    "nome": "Fogão 4 Bocas Inox",
+    "preco": 1899,
+    "imagem": "imagen/fogao.jpg",
+    "categoria": "eletrodomesticos",
+    "destaque": true,
+    "oferta": true,
+    "avaliacao": 5,
+    "descricao": "Fogão com acendimento automático, forno elétrico e limpeza fácil."
+  },
+  {
+    "id": 3,
+    "nome": "Frigobar 100L Branco",
+    "preco": 1299,
+    "imagem": "imagen/frigo.jpg",
+    "categoria": "eletrodomesticos",
+    "destaque": true,
+    "oferta": false,
+    "avaliacao": 4,
+    "descricao": "Frigobar compacto, baixo consumo, prateleiras removíveis."
+  },
+  {
+    "id": 4,
+    "nome": "Identidade Corporativa - Kit Papelaria",
+    "preco": 199,
+    "imagem": "imagen/Identidade.jpg",
+    "categoria": "escritorio",
+    "destaque": false,
+    "oferta": false,
+    "avaliacao": 5,
+    "descricao": "Kit com pastas, blocos e canetas personalizadas."
+  },
+  {
+    "id": 5,
+    "nome": "Liquidificador Inox 600W",
+    "preco": 299,
+    "imagem": "imagen/inox.jpg",
+    "categoria": "eletrodomesticos",
+    "destaque": false,
+    "oferta": true,
+    "avaliacao": 4,
+    "descricao": "Liquidificador com jarra em inox, 3 velocidades."
+  },
+  {
+    "id": 6,
+    "nome": "Tabela Periódica Digital Interativa",
+    "preco": 1300,
+    "imagem": "imagen/pa kz.jpg",
+    "categoria": "educacao",
+    "destaque": true,
+    "oferta": false,
+    "avaliacao": 5,
+    "descricao": "Tabela periódica digital com informações detalhadas."
+  },
+  {
+    "id": 7,
+    "nome": "Perfume Importado 100ml",
+    "preco": 279,
+    "imagem": "imagen/perfume.jpg",
+    "categoria": "cosmeticos",
+    "destaque": true,
+    "oferta": false,
+    "avaliacao": 5,
+    "descricao": "Fragrância masculina duradoura, notas amadeiradas."
+  },
+  {
+    "id": 8,
+    "nome": "Mesa de Escritório Ergonômica",
+    "preco": 899,
+    "imagem": "imagen/tabela.jpg",
+    "categoria": "escritorio",
+    "destaque": false,
+    "oferta": true,
+    "avaliacao": 4,
+    "descricao": "Mesa com regulagem de altura, tampo em MDF."
+  }
+]

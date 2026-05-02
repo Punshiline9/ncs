@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSC | Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Fundo estático com imagem fixa (adicione sua imagem) */
+      body {
+        background-image: url("fundo-site.jpg"); /* ← troque pelo nome da sua imagem */
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      /* O bg-glow vai sobrepor suavemente a imagem */
+      .bg-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(212, 175, 55, 0.15),
+          rgba(0, 0, 0, 0.8) 90%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+
+    <header>
+      <div class="logo-container">
+        <img src="Logo.jpeg" alt="NSC Logo" class="logo-img" />
+        <div class="logo-texto">
+          <h1>NSC</h1>
+          <p>ESCOLA ADMINISTRATIVA DE COOPERATIVO</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">🏠 HOME</a>
+        <a href="ofertas.html">💎 OFERTAS</a>
+        <a href="novidades.html">⭐ NOVIDADES</a>
+        <a href="categorias.html" class="active">🛍️ CATEGORIAS</a>
+        <a href="contato.html">📞 CONTATO</a>
+        <a href="#" id="abrirCarrinhoBtn"
+          >🛒 CARRINHO (<span id="contadorCarrinho">0</span>)</a
+        >
+      </nav>
+    </header>
+
+    <main>
+      <h3 class="section-title">🛍️ Navegue por categorias</h3>
+
+      <!-- Grid de categorias -->
+      <div class="grid-categorias" id="gridCategorias"></div>
+
+      <!-- Barra de filtro e ordenação (aparece só quando uma categoria é selecionada) -->
+      <div
+        id="filtroContainer"
+        style="display: none; text-align: center; margin-top: 2rem"
+      >
+        <button
+          id="limparCategoria"
+          class="btn-hero"
+          style="background: rgba(0, 0, 0, 0.5)"
+        >
+          ❌ Limpar filtro
+        </button>
+        <select
+          id="ordenarProdutosCat"
+          class="ordenar-select"
+          style="margin-left: 1rem"
+        >
+          <option value="relevancia">Relevância</option>
+          <option value="menor-preco">Menor preço</option>
+          <option value="maior-preco">Maior preço</option>
+        </select>
+      </div>
+
+      <!-- Título da categoria selecionada -->
+      <h4
+        id="categoriaSelecionadaTitulo"
+        style="
+          text-align: center;
+          margin-top: 2rem;
+          font-family: &quot;Playfair Display&quot;;
+          color: #e4c580;
+        "
+      ></h4>
+      <div
+        id="contagemProdutos"
+        style="text-align: center; font-size: 0.9rem"
+      ></div>
+
+      <!-- Grade de produtos da categoria -->
+      <div class="grelha" id="produtosPorCategoria"></div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 NSC – Todos os direitos reservados</p>
+      <p>
+        <a href="termos.html">Termos</a> |
+        <a href="privacidade.html">Privacidade</a>
+      </p>
+    </footer>
+
+    <!-- Modal do carrinho (mesmo estilo) -->
+    <div id="carrinhoOverlay" class="overlay">
+      <div class="carrinhoPainel glass-panel">
+        <button id="fecharCarrinhoBtn" class="fechar">✕</button>
+        <h2>🛒 Meu Carrinho</h2>
+        <div id="itensCarrinho" class="carrinho-itens"></div>
+        <div class="total">Total: <span id="totalCarrinho">0</span> STD</div>
+        <button id="finalizarCompraBtn" class="btn-finalizar">
+          💬 Finalizar via WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // Script específico para categorias.html (funciona em conjunto com o script.js global)
+      (function () {
+        let produtosGlobais = [];
+        let categoriasGlobais = [];
+        let categoriaAtual = null;
+        let produtosFiltrados = [];
+
+        // Referências DOM
+        const gridCategoriasDiv = document.getElementById("gridCategorias");
+        const produtosContainer = document.getElementById(
+          "produtosPorCategoria",
+        );
+        const filtroContainer = document.getElementById("filtroContainer");
+        const categoriaTitulo = document.getElementById(
+          "categoriaSelecionadaTitulo",
+        );
+        const contagemDiv = document.getElementById("contagemProdutos");
+        const limparBtn = document.getElementById("limparCategoria");
+        const ordenarSelect = document.getElementById("ordenarProdutosCat");
+
+        // Função para renderizar produtos (usa mesma função global se existir, ou implementa local)
+        function renderizarProdutosLocal(produtosArray, container) {
+          if (!container) return;
+          if (!produtosArray.length) {
+            container.innerHTML =
+              '<p style="text-align:center;">Nenhum produto nesta categoria.</p>';
+            return;
+          }
+          container.innerHTML = produtosArray
+            .map(
+              (prod) => `
+        <div class="produto">
+          <img src="${prod.imagem}" alt="${prod.nome}">
+          <h3>${prod.nome}</h3>
+          <div class="preco">R$ ${prod.preco.toFixed(2)}</div>
+          <div class="estrelas">${"★".repeat(prod.avaliacao || 4)}${"☆".repeat(5 - (prod.avaliacao || 4))}</div>
+          <button class="btn-adicionar" data-id="${prod.id}">+ ADICIONAR AO CARRINHO</button>
+          <a href="produto.html?id=${prod.id}" style="display:block; margin-top:0.5rem; font-size:0.8rem;">Ver detalhes →</a>
+        </div>
+      `,
+            )
+            .join("");
+
+          // Adicionar evento aos botões de comprar (usa função global adicionarAoCarrinho)
+          document
+            .querySelectorAll("#produtosPorCategoria .btn-adicionar")
+            .forEach((btn) => {
+              btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (typeof adicionarAoCarrinho === "function") {
+                  adicionarAoCarrinho(parseInt(btn.dataset.id));
+                } else {
+                  alert("Função de carrinho não disponível");
+                }
+              });
+            });
+        }
+
+        // Ordenar produtos conforme seleção
+        function ordenarProdutos(criterio) {
+          if (!produtosFiltrados.length) return;
+          if (criterio === "menor-preco") {
+            produtosFiltrados.sort((a, b) => a.preco - b.preco);
+          } else if (criterio === "maior-preco") {
+            produtosFiltrados.sort((a, b) => b.preco - a.preco);
+          } else {
+            // relevância: manter ordem original (por id)
+            produtosFiltrados.sort((a, b) => a.id - b.id);
+          }
+          renderizarProdutosLocal(produtosFiltrados, produtosContainer);
+        }
+
+        // Carregar produtos da categoria selecionada
+        function carregarProdutosPorCategoria(slug, nomeCategoria) {
+          categoriaAtual = slug;
+          produtosFiltrados = produtosGlobais.filter(
+            (p) => p.categoria === slug,
+          );
+          categoriaTitulo.innerText = `Categoria: ${nomeCategoria}`;
+          contagemDiv.innerText = `${produtosFiltrados.length} produto(s) encontrado(s)`;
+          filtroContainer.style.display = "block";
+          // Ordenar conforme opção atual
+          ordenarProdutos(ordenarSelect.value);
+        }
+
+        // Limpar filtro: esconde produtos, mostra categorias novamente (reset visual)
+        function limparFiltro() {
+          categoriaAtual = null;
+          produtosFiltrados = [];
+          categoriaTitulo.innerText = "";
+          contagemDiv.innerText = "";
+          filtroContainer.style.display = "none";
+          produtosContainer.innerHTML = ""; // limpa os produtos
+          // Re-renderiza categorias (mas elas já estão visíveis)
+        }
+
+        // Carregar categorias e produtos
+        Promise.all([
+          fetch("categorias.json")
+            .then((r) => r.json())
+            .catch(() => []),
+          fetch("produtos.json")
+            .then((r) => r.json())
+            .catch(() => []),
+        ])
+          .then(([cats, prods]) => {
+            categoriasGlobais = cats;
+            produtosGlobais = prods;
+
+            // Renderizar grid de categorias
+            if (gridCategoriasDiv) {
+              gridCategoriasDiv.innerHTML = categoriasGlobais
+                .map(
+                  (cat) => `
+          <div class="categoria-card" data-slug="${cat.slug}" data-nome="${cat.nome}">
+            <img src="${cat.imagem}" alt="${cat.nome}">
+            <h3>${cat.nome}</h3>
+            <p>${cat.icone || "✨"}</p>
+          </div>
+        `,
+                )
+                .join("");
+              // Adicionar evento de clique em cada categoria
+              document.querySelectorAll(".categoria-card").forEach((card) => {
+                card.addEventListener("click", () => {
+                  const slug = card.getAttribute("data-slug");
+                  const nome = card.getAttribute("data-nome");
+                  carregarProdutosPorCategoria(slug, nome);
+                });
+              });
+            }
+
+            // Evento de ordenação
+            if (ordenarSelect) {
+              ordenarSelect.addEventListener("change", () => {
+                if (categoriaAtual) ordenarProdutos(ordenarSelect.value);
+              });
+            }
+
+            // Botão limpar
+            if (limparBtn) {
+              limparBtn.addEventListener("click", limparFiltro);
+            }
+          })
+          .catch((err) => console.warn("Erro ao carregar dados:", err));
+
+        // Integração com carrinho global: garantir que o contador atualize
+        if (typeof carregarCarrinho === "function") carregarCarrinho();
+      })();
+    </script>
+  </body>
+</html>

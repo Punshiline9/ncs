@@ -1,0 +1,412 @@
+/* ========== RESET E BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0a0f1e;
+  color: #e0e4f0;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ========== FUNDO ESTÁTICO (já no HTML, mas garantido) ========== */
+body {
+  background-image: url("fundo-site.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bg-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(212, 175, 55, 0.15),
+    rgba(0, 0, 0, 0.85) 90%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========== HEADER ========== */
+header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background: rgba(5, 8, 18, 0.65);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid #e4c580;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.logo-img {
+  height: 70px;
+  border-radius: 16px;
+  border: 1px solid #e4c580;
+}
+.logo-texto h1 {
+  font-size: 2.2rem;
+  color: #e4c580;
+}
+.logo-texto p {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+nav a,
+.menu-item-dropdown > a {
+  color: #e0d6b0;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+nav a:hover,
+.menu-item-dropdown > a:hover {
+  color: #ffdf99;
+}
+
+/* ========== DROPDOWNS ========== */
+.menu-item-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(10, 15, 25, 0.98);
+  backdrop-filter: blur(16px);
+  border: 1px solid #e4c580;
+  border-radius: 20px;
+  min-width: 260px;
+  padding: 1rem 0;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: 0.2s;
+}
+.menu-item-dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown-categorias {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  padding: 0.5rem 1rem;
+}
+.dropdown-categorias a {
+  color: #e0d6b0;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.mini-carrinho {
+  min-width: 280px;
+}
+.mini-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(228, 197, 128, 0.2);
+}
+.mini-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.mini-total {
+  text-align: right;
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  border-top: 1px solid #e4c580;
+}
+.mini-finalizar {
+  display: block;
+  background: #25d366;
+  text-align: center;
+  margin: 0.8rem;
+  padding: 0.5rem;
+  border-radius: 40px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.ver-mais-link {
+  display: block;
+  text-align: center;
+  margin-top: 0.8rem;
+  color: #e4c580;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* ========== HERO ========== */
+.hero-message {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+  position: relative;
+  z-index: 5;
+}
+.hero-message h2 {
+  font-size: 3rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  padding: 0.8rem 1.8rem;
+  border-radius: 60px;
+  border: 2px solid #e4c580;
+  display: inline-block;
+  margin: 0 auto;
+  font-family: "Playfair Display", serif;
+}
+.gold-text {
+  color: #e4c580;
+}
+.btn-hero {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  border: 1.5px solid #e4c580;
+  border-radius: 40px;
+  color: #e4c580;
+  background: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+.btn-hero:hover {
+  background: #e4c580;
+  color: #0a0f1e;
+}
+
+/* ========== TÍTULOS COM BORDA E FUNDO ESCURO ========== */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border: 2px solid #e4c580;
+  display: inline-block;
+  margin: 2rem auto;
+  width: auto;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .section-title {
+    white-space: normal;
+    font-size: 1.3rem;
+  }
+  .hero-message h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ========== GRID E CARDS ========== */
+.grelha {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+.produto {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 20, 30, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 28px;
+  border: 1px solid rgba(228, 197, 128, 0.6);
+  overflow: hidden;
+  transition: 0.3s;
+  height: 100%;
+}
+.produto img {
+  width: 100%;
+  aspect-ratio: 1 / 0.8;
+  object-fit: cover;
+  border-bottom: 1px solid #e4c580;
+}
+.produto h3 {
+  font-size: 1.1rem;
+  margin: 0.8rem 0.8rem 0.2rem;
+  color: #ffefc0;
+}
+.produto .preco {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #e4c580;
+  margin: 0.2rem 0.8rem;
+}
+.produto .estrelas {
+  margin: 0.2rem 0.8rem;
+  font-size: 0.9rem;
+}
+.btn-adicionar {
+  background: linear-gradient(135deg, #1e2a3a, #0f1722);
+  color: #e4c580;
+  border: 1px solid #e4c580;
+  padding: 0.6rem;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.5rem 0.8rem;
+}
+.btn-adicionar:hover {
+  background: #e4c580;
+  color: #0a0f1e;
+}
+.produto a {
+  margin: 0 0.8rem 0.8rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+/* ========== MODAL CARRINHO ========== */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.carrinhoPainel {
+  background: rgba(10, 15, 25, 0.95);
+  border-radius: 28px;
+  border-left: 2px solid #e4c580;
+  padding: 1.8rem;
+  width: 90%;
+  max-width: 550px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.fechar {
+  float: right;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #e4c580;
+  cursor: pointer;
+}
+.item-carrinho {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(228, 197, 128, 0.3);
+  padding: 0.8rem 0;
+}
+.item-carrinho img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.item-nome {
+  flex: 2;
+}
+.qtd-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.2rem 0.6rem;
+  border-radius: 40px;
+}
+.qtd-control button {
+  background: #e4c580;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+}
+.remover-item {
+  background: none;
+  border: none;
+  color: #ff8888;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.total {
+  font-size: 1.4rem;
+  text-align: right;
+  border-top: 1px solid #e4c580;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.btn-finalizar {
+  background: #25d366;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 40px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+/* ========== RODAPÉ ========== */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(5, 8, 18, 0.8);
+  border-top: 1px solid rgba(228, 197, 128, 0.3);
+  margin-top: 4rem;
+}
+.footer a {
+  color: #e4c580;
+  text-decoration: none;
+}
+
+/* ========== TOAST ========== */
+.toast-notify {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  background: #1e2a3a;
+  border-left: 5px solid #e4c580;
+  color: #ffefc0;
+  padding: 12px 24px;
+  border-radius: 50px;
+  z-index: 2000;
+  opacity: 0;
+  transition: 0.2s;
+}
+.toast-notify.show {
+  opacity: 1;
+}

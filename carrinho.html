@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSC | Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Fundo estático com imagem fixa (adicione sua imagem) */
+      body {
+        background-image: url("fundo-site.jpg"); /* ← troque pelo nome da sua imagem */
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      /* O bg-glow vai sobrepor suavemente a imagem */
+      .bg-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(212, 175, 55, 0.15),
+          rgba(0, 0, 0, 0.8) 90%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <header>...</header>
+    <main>
+      <h3 class="section-title">🛒 Meu Carrinho</h3>
+      <div class="grelha" id="carrinhoPagina"></div>
+      <div class="total" style="text-align: center; margin-top: 2rem">
+        Total: <span id="totalCarrinhoPagina">0</span> STD
+      </div>
+      <div style="text-align: center; margin: 2rem">
+        <button id="finalizarCompraPagina" class="btn-finalizar">
+          Finalizar compra
+        </button>
+      </div>
+    </main>
+    <footer class="footer">...</footer>
+    <script src="script.js"></script>
+    <script>
+      function renderizarCarrinhoPagina() {
+        const container = document.getElementById("carrinhoPagina");
+        const totalSpan = document.getElementById("totalCarrinhoPagina");
+        const carrinho = JSON.parse(
+          localStorage.getItem("carrinhoNSC") || "[]",
+        );
+        if (carrinho.length === 0) {
+          container.innerHTML =
+            '<p style="text-align:center">Carrinho vazio</p>';
+          totalSpan.innerText = "0";
+          return;
+        }
+        let total = 0;
+        container.innerHTML = carrinho
+          .map((item) => {
+            total += item.preco * item.qtd;
+            return `<div class="produto"><img src="${item.imagem}"><h3>${item.nome}</h3><div class="preco">R$ ${item.preco}</div><div>Qtd: ${item.qtd}</div><button class="remover-item" data-id="${item.id}">Remover</button></div>`;
+          })
+          .join("");
+        totalSpan.innerText = total.toFixed(2);
+        document.querySelectorAll(".remover-item").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            let carr = JSON.parse(localStorage.getItem("carrinhoNSC") || "[]");
+            carr = carr.filter((i) => i.id != btn.dataset.id);
+            localStorage.setItem("carrinhoNSC", JSON.stringify(carr));
+            renderizarCarrinhoPagina();
+          });
+        });
+      }
+      document
+        .getElementById("finalizarCompraPagina")
+        ?.addEventListener("click", () => {
+          let carr = JSON.parse(localStorage.getItem("carrinhoNSC") || "[]");
+          if (carr.length === 0) return alert("Carrinho vazio");
+          let msg = "Pedido:\n";
+          carr.forEach(
+            (i) => (msg += `- ${i.nome} x${i.qtd} = R$ ${i.preco * i.qtd}\n`),
+          );
+          const total = carr.reduce((a, b) => a + b.preco * b.qtd, 0);
+          msg += `\nTotal: R$ ${total.toFixed(2)}`;
+          window.open(
+            `https://wa.me/5511999999999?text=${encodeURIComponent(msg)}`,
+          );
+        });
+      renderizarCarrinhoPagina();
+    </script>
+  </body>
+</html>
